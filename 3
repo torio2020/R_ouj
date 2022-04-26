@@ -1,0 +1,37 @@
+Rにおけファイル操作
+h1 <- read.table("ファイル名",追加で指定する事柄)
+h1[1,]とすると1行目のデータ、h1[,1]とすると1列目のデータ
+> h1 <- read.table("ch031.dat",header = T,row.names=1)
+> h1
+     A  B
+A1 148 52
+A2 152 54
+A3 154 56
+A4 158 58
+A5 163 60
+> h1[4,2]
+[1] 58
+
+カンマで区切られたファイルを読み込むときには、sep=","とする
+> h2 <- read.table("ch032.dat",h=T,row.names=1,sep=",")
+> h2
+     C  D
+B1 148 52
+B2 152 54
+B3 154 56
+B4 158 58
+B5 163 60
+
+次のコマンドは上の読み込みと同じ意味を表している
+> h2 <- read.csv("ch032.dat",h=T,row.names=1)
+データの1列目が各列の説明である場合にはheader=TRUEと指定する。
+headerをh,TRUEをTと省略できる
+read.table()では何も指定しないとFALSEと判断される。
+read.csv()では何も指定しないとTRUEであると判断される。
+そのため
+> h2 <- read.csv("ch032.dat",row.names=1)
+としても正しく読める
+
+Rで作成したオブジェクトをファイルとして書き出すときにはwrite.tableという関数を使う。
+例:var(h1)をch033.txtという名前で保存する
+> write.table(var(h1),"ch033.txt")
