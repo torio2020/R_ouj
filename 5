@@ -1,0 +1,38 @@
+散布図を描くにはplot()という函数を用いる
+> h1 <- 
++ read.table("ch031.dat",h=T,row.names=1)
+plot()という関数においてtype="n"で実際には点をプロットせずに枠だけを描画し、
+次にtextでh1の各座標に、h1の行の名前rownames(h1)をプロットする
+> plot(h1,type="n")
+> text(h1,rownames(h1))
+凡例(legend):図の中の点や線の説明
+x,ylabでx,y軸のラベル
+点のタイプpch=1
+> plot(h1,main="plot()",xlab="height",ylab="weight")
+> legend(155,53,legend="e01.dat,pch=1")
+折れ線グラフ
+type="1"とすると線のみ、"b"とすると点と線、"o"とすると点の上に線を上書きした形でプロットする
+> plot(h1,type="o")
+ヒストグラム
+> point <- read.table("ch053.dat",h=T)
+> hist(point$A)
+縦軸の度数を割合に換えるにはfreq=Fを使う
+> hist(point$A,freq = F)
+円グラフ
+それぞれの項目が何を表しているかをlabelsで指定している
+clockwise=Tは各項目を時計回りに描くことを意味している、指定しないと反時計回り
+> c1 <- read.table("ch052.dat",h=T,row.names=1)
+> pie(c1$freq,labels=rownames(c1),clockwise = T)
+次にようにしても同じ
+> c2 <- read.table("ch052.dat",h=T)
+> pie(c2$freq,labels=c2$A,clockwise = T)
+棒グラフ
+> barplot(c1$freq,names=rownames(c1))
+関数の描画
+> f1 <- function(x) 1/( 1+exp(-x) )
+> plot(f1)
+または
+> curve( 1/( 1+exp(-x) ))
+このcurveは高水準関数
+低水準関数の様に作成したグラフに曲線を追加する場合は
+> curve( 1/( 1+exp(-x) ),add=T)
