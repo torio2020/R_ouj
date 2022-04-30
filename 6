@@ -1,0 +1,41 @@
+χ２乗検定、確率が分かってる場合にはp=c()で入力する
+> chisq.test(c(45,25,22,8),p=c(40,30,20,10)/100)
+
+	Chi-squared test for given probabilities
+
+data:  c(45, 25, 22, 8)
+X-squared = 2.0583, df = 3, p-value =
+0.5604
+
+乱数を発生させ、出た値が0~0.4,0.4~0.7,0.7~0.9,0.9~によって１、２、３、４という値を出力する様にする
+ifelse(P,A,B)はPという条件を調べ、それが真であればA,そうでなければBとなる。
+次の様にして１００人の人数を４グループに分けχ２乗値を計算する
+> x <- runif(100)
+> y <-ifelse(x<0.4,1,ifelse(x<0.7,2,ifelse(x<0.9,3,4)))
+> z1 <- table(y)
+> z2 <- c(40,30,20,10)
+> z3 <- ( z1-z2 )^2
+> sum(z3/z2)
+[1] 0.4583333
+
+P104のコード
+source()は動かなかった
+> source("ch64.R")
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'ch64.R': No such file or directory
+  
+  
+演習問題 
+> x <- runif(1000)
+> y <- runif(1000)
+> z <- cbind(x,y)
+> P1 <- apply(z*z,1,sum)
+> P2 <- ifelse(P1 < 1,1,0)
+> sum(P2)/1000
+[1] 0.79
+
+> pi/4
+[1] 0.7853982
