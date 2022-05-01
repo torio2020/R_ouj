@@ -7,3 +7,56 @@
 > y2 <- 0.2*x1 + 0.1*x2
 > plot(x1,y2,ylim=c(-3,3))
 > abline(lm(y2~x1))
+
+回帰分析で正規方程式を解く
+手順：分散共分散の逆行列を求め、連立1次方程式を解く
+solve(A,b):連立方程式を解く関数(lmでも行ける)
+> w1 <- women
+> w1
+   height weight
+1      58    115
+2      59    117
+3      60    120
+4      61    123
+5      62    126
+6      63    129
+7      64    132
+8      65    135
+9      66    139
+10     67    142
+11     68    146
+12     69    150
+13     70    154
+14     71    159
+15     72    164
+> w2 <- lm(weight~height,data=w1)
+> w2
+
+Call:
+lm(formula = weight ~ height, data = w1)
+
+Coefficients:
+(Intercept)       height  
+     -87.52         3.45
+     
+> plot(w1)
+> abline(-87.52, 3.45)
+> summary(w2)
+
+Call:
+lm(formula = weight ~ height, data = w1)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.7333 -1.1333 -0.3833  0.7417  3.1167 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -87.51667    5.93694  -14.74 1.71e-09 ***
+height        3.45000    0.09114   37.85 1.09e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.525 on 13 degrees of freedom
+Multiple R-squared:  0.991,	Adjusted R-squared:  0.9903 決定係数を見るとデータの傾向を良く表してることが分かる
+F-statistic:  1433 on 1 and 13 DF,  p-value: 1.091e-14     
