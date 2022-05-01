@@ -1,0 +1,60 @@
+
+> w1 <- read.table("ch091.dat",header = T,row.names=1)
+> head(w1)
+  認知心理学     統計学   神経科学   心理学史
+1 -0.6576601 -1.4295485  0.2447532 -1.9903552
+2  0.1054264  0.1526702  1.2237662  1.2980577
+3 -0.6576601  0.1526702 -0.7342597  1.2980577
+4 -1.4207467  0.6800765 -0.2447532 -0.3461487
+5  1.2500563 -0.3747360  0.7342597  1.2980577
+6  0.8685130  0.1526702  1.7132727 -0.3461487
+    精神分析
+1  0.8221572
+2  1.1409528
+3  0.1845659
+4 -0.4530254
+5  1.4597484
+6  0.8221572
+> w2 <- cor(w1)
+固有値eigen()$valuesは大きい順に並んでいるので、それをプロットする
+> plot( eigen(w2)$values, type="b" ); abline(h=1)
+因子分析をする函数factanal()のパラメータはfactanal(データ、因子数、rotation="")とする
+rotationの取りうる値は、何もしない("none")、バリマックス("varimax")、プロマックス("peomax")
+> w2 <- factanal(w1,2,rotation = "promax")
+> w2
+
+Call:
+factanal(x = w1, factors = 2, rotation = "promax")
+
+Uniquenesses:独立因子の大きさ
+認知心理学     統計学   神経科学   心理学史 
+     0.556      0.526      0.634      0.316 
+  精神分析 
+     0.500 
+
+Loadings:因子付加量
+           Factor1 Factor2
+認知心理学  0.728  -0.156 
+統計学              0.637 
+神経科学    0.601         
+心理学史            0.859 
+精神分析    0.627   0.141 
+
+               Factor1 Factor2
+SS loadings      1.298   1.187
+Proportion Var   0.260   0.237
+Cumulative Var   0.260   0.497
+
+Factor Correlations:
+        Factor1 Factor2
+Factor1   1.000   0.488
+Factor2   0.488   1.000
+
+Test of the hypothesis that 2 factors are sufficient.
+The chi square statistic is 0.44 on 1 degree of freedom.
+The p-value is 0.506
+回転後の因子付加量
+> plot(xlim=c(-0.5,1),ylim=c(-0.5,1),w2$loadings)
+> axis(2,pos=0)
+> axis(1,pos=0)
+> text(w2$loadings,rownames(w2$loadings),pos=1)
