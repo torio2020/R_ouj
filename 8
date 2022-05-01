@@ -1,0 +1,28 @@
+データを読み込む
+> w1 <- read.table("ch081.dat",header = T,row.names=1)
+prcomp(w1)で主成分分析を行う
+標準化しない場合はscale=FALSE,中心化もしない場合はcenter=F
+> w2 <- prcomp(w1)
+計算結果を見る
+> w2
+Standard deviations (1, .., p=2):
+[1] 1.41261982 0.06712103
+
+Rotation (n x k) = (2 x 2):
+             PC1        PC2
+height 0.7071068  0.7071068
+weight 0.7071068 -0.7071068
+結果の要約をみる
+> summary(w2)
+Importance of components:
+                          PC1     PC2
+Standard deviation     1.4126 0.06712主成分の標準偏差
+Proportion of Variance 0.9978 0.00225寄与率
+Cumulative Proportion  0.9978 1.00000累積寄与率
+それぞれの主成分得点はw2$xで見ることができる
+これを図にすると
+枠を指定
+> plot(w2$x,type="n")
+その座標と行の名前を指定してプロット
+rownames(w1)で行の名前をプロット
+> text(w2$x,rownames(w1))
